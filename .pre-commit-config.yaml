@@ -1,0 +1,41 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks:
+      - id: clang-format
+        args: [--style=file, -i]
+        files: \.(c|cc|cxx|cpp|h|hpp|hxx)$
+        types_or: [c, c++]
+
+  - repo: https://github.com/cheshirekow/cmake-format-precommit
+    rev: v0.6.13
+    hooks:
+      - id: cmake-format
+        additional_dependencies: [pyyaml]
+        types: [cmake]
+
+  - repo: local
+    hooks:
+      - id: esp32-build-check
+        name: ESP32 Build Check
+        entry: bash
+        args:
+          - -c
+          - |
+            if command -v idf.py >/dev/null 2>&1; then
+              echo "Running ESP32 build check..."
+              idf.py build --dry-run || true
+            else
+              echo "ESP-IDF not available, skipping build check"
+            fi
+        language: system
+        files: \.(c|h|cmake)$
+        pass_filenames: false

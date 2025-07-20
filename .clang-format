@@ -1,0 +1,35 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+IndentCaseLabels: true
+SpaceBeforeParens: Never
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+BraceWrapping:
+  AfterFunction: true
+  AfterControlStatement: false
+  AfterStruct: true
+  AfterEnum: true
+  BeforeElse: false
+BreakBeforeBraces: Custom
+IndentPPDirectives: BeforeHash
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^".*\.h"$'
+    Priority: 1
+  - Regex: '^<esp_.*\.h>$'
+    Priority: 2
+  - Regex: '^<driver/.*\.h>$'
+    Priority: 2
+  - Regex: '^<freertos/.*\.h>$'
+    Priority: 3
+  - Regex: '^<.*\.h>$'
+    Priority: 4

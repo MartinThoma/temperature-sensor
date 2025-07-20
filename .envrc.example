@@ -1,0 +1,3 @@
+# Copy this file to .envrc and set your actual WiFi credentials
+export WIFI_SSID="YourWiFiNetworkName"
+export WIFI_PASS="YourWiFiPassword"
