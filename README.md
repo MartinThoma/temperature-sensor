@@ -1,10 +1,25 @@
 # Temperature- and Humidity Sensor
 
-* Price: 9.63€
+The idea behind this project is to create a temperature and humidity sensor that can be easily integrated into a home automation system, such as Home Assistant.
+
+In a private house every room should have at
+least one sensor, potentially more to get the
+temperature gradient within a room (from floor
+to ceiling, from window to door).
+
+It is primarily designed to be used indoors.
+
+As one home might have 15 rooms and every room might have 1-3 sensors, the price should be low
+enough to allow for multiple sensors without breaking the bank.
+
+For the same reason, the sensor should be low power, so it can run on batteries for a long time.
+
+It also should not break the wi-fi by having too many sensors connected to the same network.
+
 
 ## Hardware
 
-### Components
+### Components: 9.63€
 
 
 <table>
@@ -69,9 +84,14 @@ source .envrc
 idf.py -p /dev/ttyUSB0 flash monitor
 ```
 
+## Communication
+
+Home Assistant can get the data from the sensor via HTTP requests (polling a REST API).
+
 ### TODO
 
 * Integrate into Home Assistant
+* Make a rigid case
 * Run with battery
 * Configure WiFi credentials via Bluetooth
 * Use less energy
