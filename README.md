@@ -99,6 +99,7 @@ Home Assistant can get the data from the sensor via HTTP requests (polling a RES
 ### TODO
 
 * Integrate into Home Assistant, maybe via [ESPHome](https://esphome.io/)
+* [ESP32 Wi-Fi Provisioning via Bluetooth](https://randomnerdtutorials.com/esp32-wi-fi-provisioning-ble-arduino/)
 * Make a rigid case, e.g. with a 3D printer. Should be easy to swap
   batteries/plug in a USB cable.
 * Run with batteries
@@ -116,3 +117,5 @@ Home Assistant can get the data from the sensor via HTTP requests (polling a RES
       and has a better accuracy (±0.5% RH, ±0.3°C). It is almost twice as
       expensive, though (~5€ per piece).
     * The AHT20 is more accurate than the DHT22, has a higher resolution, requires a lower voltage, uses less power. [Wiring seems easy](https://www.espboards.dev/sensors/aht20/)
+    * The BME280 would also give Barometric Pressure. [Tutorial](https://randomnerdtutorials.com/esp32-bme280-arduino-ide-pressure-temperature-humidity/)
+    * The SHT35 has a slightly better accuracy than the AHT20, but is more expensive. The SHT45 additionally has lower power consumption, but is even more expensive.
