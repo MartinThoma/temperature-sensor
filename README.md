@@ -16,6 +16,14 @@ For the same reason, the sensor should be low power, so it can run on batteries 
 
 It also should not break the wi-fi by having too many sensors connected to the same network.
 
+The sensor should cover:
+
+* Temperature: -40°C to +60°C, so an unheated garage or an attic in summer can
+  be monitored
+* Humidity: 0% to 100% RH, to account for all indoor environments
+* Accuracy: ±1°C and ±5% RH, so it is not too expensive but still accurate
+  enough for most use cases
+* One value every minute should always be enough
 
 ## Hardware
 
@@ -90,8 +98,21 @@ Home Assistant can get the data from the sensor via HTTP requests (polling a RES
 
 ### TODO
 
-* Integrate into Home Assistant
-* Make a rigid case
-* Run with battery
+* Integrate into Home Assistant, maybe via [ESPHome](https://esphome.io/)
+* Make a rigid case, e.g. with a 3D printer. Should be easy to swap
+  batteries/plug in a USB cable.
+* Run with batteries
 * Configure WiFi credentials via Bluetooth
-* Use less energy
+* Use less energy:
+    - Switch from polling to MQTT
+    - Use deep sleep mode
+    - Switch from Wi-Fi to something
+      less power hungry (e.g. LoRaWAN, Zigbee, Thread, BLE, ESP-NOW)
+
+## Improvements
+
+* Sensor:
+    * The DHT22 (AM2302) would cover especially low temperatures (down to -40°C)
+      and has a better accuracy (±0.5% RH, ±0.3°C). It is almost twice as
+      expensive, though (~5€ per piece).
+    * The AHT20 is more accurate than the DHT22, has a higher resolution, requires a lower voltage, uses less power. [Wiring seems easy](https://www.espboards.dev/sensors/aht20/)
