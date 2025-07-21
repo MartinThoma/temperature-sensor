@@ -1,4 +1,4 @@
-#include "dht11.h"
+#include "dht.h"
 #include "driver/gpio.h"
 #include "esp_event.h"
 #include "esp_http_server.h"
@@ -27,7 +27,7 @@ static const char *TAG = "main";
 // Serve sensor data as a webpage
 esp_err_t data_get_handler(httpd_req_t *req)
 {
-    int temp, hum;
+    int16_t temp, hum;
     char resp[200];
     esp_err_t ret;
 
@@ -35,13 +35,14 @@ esp_err_t data_get_handler(httpd_req_t *req)
 
     // Try reading sensor multiple times if it fails
     for(int attempts = 0; attempts < 3; attempts++) {
-        ret = dht11_read(DHT_GPIO, &temp, &hum);
+        ret = dht_read_data(DHT_TYPE_DHT11, DHT_GPIO, &hum, &temp);
         if(ret == ESP_OK) {
             snprintf(resp, sizeof(resp),
-                     "{\"temperature\":\"%d°C\", "
-                     "\"humidity\": \"%d%%\"}",
-                     temp, hum);
-            ESP_LOGI(TAG, "DHT11 read successful on attempt %d", attempts + 1);
+                     "{\"temperature\":\"%.1f°C\", "
+                     "\"humidity\":\"%.1f%%\"}",
+                     temp / 10.0, hum / 10.0);
+            ESP_LOGI(TAG, "DHT11 read successful on attempt %d: T=%.1f°C, H=%.1f%%", attempts + 1,
+                     temp / 10.0, hum / 10.0);
             break;
         } else {
             ESP_LOGW(TAG, "DHT11 read failed on attempt %d", attempts + 1);
@@ -114,9 +115,10 @@ void app_main(void)
     ESP_LOGI(TAG, "Web server started");
 
     // Test sensor reading once at startup
-    int test_temp, test_hum;
-    if(dht11_read(DHT_GPIO, &test_temp, &test_hum) == ESP_OK) {
-        ESP_LOGI(TAG, "Initial DHT11 test successful: T=%d°C, H=%d%%", test_temp, test_hum);
+    int16_t test_temp, test_hum;
+    if(dht_read_data(DHT_TYPE_DHT11, DHT_GPIO, &test_hum, &test_temp) == ESP_OK) {
+        ESP_LOGI(TAG, "Initial DHT11 test successful: T=%.1f°C, H=%.1f%%", test_temp / 10.0,
+                 test_hum / 10.0);
     } else {
         ESP_LOGW(TAG, "Initial DHT11 test failed - sensor may need time to stabilize");
     }

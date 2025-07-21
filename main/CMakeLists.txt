@@ -10,7 +10,19 @@ if(NOT WIFI_SSID OR NOT WIFI_PASS)
   )
 endif()
 
-idf_component_register(SRCS "main.c" "dht11.c" INCLUDE_DIRS ".")
+idf_component_register(
+  SRCS
+  "main.c"
+  INCLUDE_DIRS
+  "."
+  REQUIRES
+  dht
+  esp_http_server
+  esp_wifi
+  esp_netif
+  nvs_flash
+  PRIV_REQUIRES
+  esp_event)
 
 # Add compile definitions for WiFi credentials
 target_compile_definitions(${COMPONENT_LIB} PRIVATE WIFI_SSID="${WIFI_SSID}"
