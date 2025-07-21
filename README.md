@@ -59,7 +59,38 @@ The sensor should cover:
    - GND to GND
    - Data pin to GPIO 4 (D4)
 
-## Setup
+## Software
+
+### Size
+
+```
+$ idf.py size
+
+                             Memory Type Usage Summary
+┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Memory Type/Section   ┃ Used [bytes] ┃ Used [%] ┃ Remain [bytes] ┃ Total [bytes] ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ Flash Code            │       567086 │          │                │               │
+│    .text              │       567086 │          │                │               │
+│ Flash Data            │       110564 │          │                │               │
+│    .rodata            │       110308 │          │                │               │
+│    .appdesc           │          256 │          │                │               │
+│ IRAM                  │        98143 │    74.88 │          32929 │        131072 │
+│    .text              │        97115 │    74.09 │                │               │
+│    .vectors           │         1028 │     0.78 │                │               │
+│ DRAM                  │        33272 │    18.41 │         147464 │        180736 │
+│    .data              │        16672 │     9.22 │                │               │
+│    .bss               │        16600 │     9.18 │                │               │
+│ RTC FAST              │           36 │     0.44 │           8156 │          8192 │
+│    .force_fast        │           36 │     0.44 │                │               │
+│ RTC SLOW              │           24 │     0.29 │           8168 │          8192 │
+│    .rtc_slow_reserved │           24 │     0.29 │                │               │
+└───────────────────────┴──────────────┴──────────┴────────────────┴───────────────┘
+Total image size: 792501 bytes (.bin may be padded larger)
+```
+
+
+### Setup
 
 1. Copy the environment variables template:
    ```bash
@@ -77,7 +108,7 @@ The sensor should cover:
    source .envrc
    ```
 
-## Development
+### Development
 
 Requirements:
 
@@ -102,7 +133,7 @@ Home Assistant can get the data from the sensor via HTTP requests (polling a RES
 * [ESP32 Wi-Fi Provisioning via Bluetooth](https://randomnerdtutorials.com/esp32-wi-fi-provisioning-ble-arduino/)
 * Make a rigid case, e.g. with a 3D printer. Should be easy to swap
   batteries/plug in a USB cable.
-* Run with batteries
+* Run with batteries (2x AAA Battery Holder)
 * Configure WiFi credentials via Bluetooth
 * Use less energy:
     - Switch from polling to MQTT
